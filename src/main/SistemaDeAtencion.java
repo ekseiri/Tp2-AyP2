@@ -5,12 +5,12 @@ import Utils.PatenteGenerator;
 public class SistemaDeAtencion {
 
 	public static void main(String[] args) {
-		int cantidad = 20;
+		int cantidad = 1;
 		String[] patentes = PatenteGenerator.generar(cantidad);
 		
 		for (int i = 0; i < cantidad; i++)
 		{
-			System.out.println(patentes[cantidad]);
+			System.out.println(patentes[cantidad].toString());
 		}
 	}
 

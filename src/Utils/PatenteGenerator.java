@@ -9,18 +9,19 @@ public class PatenteGenerator
 	public static String[] generar(int cantidad)
 	{
 		Random rnd = new Random();
-		int i;
+		int i = 0;
+		int j;
 		String valor = "";
 		HashSet<String> conjunto = new HashSet<String>();
-		while (cantidad < 10)
+		while (i < cantidad)
 		{
-			for (i = 0; i < 3; i++)
+			for (j = 0; j < 3; j++)
 			{
 				valor += String
 						.valueOf(Character.toChars(rnd.nextInt(26) + 65));
 			}
 
-			for (i = 0; i < 3; i++)
+			for (j = 0; j < 3; j++)
 			{
 				valor += ((Integer) rnd.nextInt(10)).toString();
 			}
@@ -28,7 +29,7 @@ public class PatenteGenerator
 			if (!conjunto.contains(valor))
 			{
 				conjunto.add(valor);
-				cantidad++;
+				i++;
 			}
 			valor = "";
 

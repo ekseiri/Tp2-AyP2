@@ -1,10 +1,17 @@
 package main;
 
+import Utils.PatenteGenerator;
+
 public class SistemaDeAtencion {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		int cantidad = 20;
+		String[] patentes = PatenteGenerator.generar(cantidad);
+		
+		for (int i = 0; i < cantidad; i++)
+		{
+			System.out.println(patentes[cantidad]);
+		}
 	}
 
 }

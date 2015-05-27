@@ -6,12 +6,7 @@ import java.util.Random;
 public class PatenteGenerator
 {
 
-	public PatenteGenerator()
-	{
-
-	}
-
-	public String[] generar(int cantidad)
+	public static String[] generar(int cantidad)
 	{
 		Random rnd = new Random();
 		int i;

@@ -34,6 +34,6 @@ public class PatenteGenerator
 			valor = "";
 
 		}
-		return (String[]) conjunto.toArray();
+		return conjunto.toArray(new String[conjunto.size()]);
 	}
 }

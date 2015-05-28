@@ -3,9 +3,18 @@ package Utils;
 import java.util.HashSet;
 import java.util.Random;
 
+/**
+ * Clase usada para crear las patentes 
+ *
+ */
+
 public class PatenteGenerator
 {
-
+	/**
+     * Devuelve un array de patentes
+     * @param int cantidad
+     * @return String[]
+     */
 	public static String[] generar(int cantidad)
 	{
 		Random rnd = new Random();

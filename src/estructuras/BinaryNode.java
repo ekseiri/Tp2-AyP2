@@ -1,32 +1,77 @@
 package estructuras;
-import main.Cliente;
 
-public class BinaryNode<T> extends Node<T> {
+public class BinaryNode<T extends Comparable<? super T>> implements Comparable<T> {
 	
-	public Cliente element;
-	public BinaryNode<T> childOf;
-	public BinaryNode<T> left;
-	public BinaryNode<T> right;
+	private T element;
+	private BinaryNode<T> childOf;
+	private BinaryNode<T> left;
+	private BinaryNode<T> right;
+	private int height;
 	
-	public BinaryNode (Cliente element) {
+	public BinaryNode (T element) {
 		this(element, null);
 	}
 	
-	public BinaryNode (Cliente element, BinaryNode<T> parent) {
+	public BinaryNode (T element, BinaryNode<T> parent) {
+		this(element, parent, null, null);
+	}
+	
+	public BinaryNode (T element, BinaryNode<T> parent, BinaryNode<T> left, BinaryNode<T> right) {
 		this.element = element;
+		this.childOf = parent;
+		this.left = left;
+		this.right = right;
+		
+		if ((left == null) && (right == null))
+			this.setHeight(1);
+		else if (left == null)
+			this.setHeight(right.getHeight() + 1);
+		else if (right == null)
+			this.setHeight(left.getHeight() +1);
+		else
+			this.setHeight(Math.max(left.getHeight(), right.getHeight()) + 1);
+	}
+	
+	public T getElement() {
+		return this.element;
+	}
+	
+	public BinaryNode<T> getParent() {
+		return this.childOf;
+	}
+	
+	public void setParent(BinaryNode<T> parent) {
 		this.childOf = parent;
 	}
 	
-	public void addChild(BinaryNode<T> nodo) {
-		int comparacion = nodo.element.getPatente().compareTo(this.element.getPatente());
-		
-		if (comparacion < 0) {
-			//menor que
-		} else if (comparacion > 0) {
-			//mayor que
-		} else {
-			throw new IllegalArgumentException("Las patentes son iguales, this shouldn't be happening, ever.");
-		}
+	public BinaryNode<T> getLeftChild() {
+		return this.left;
 	}
+	
+	public BinaryNode<T> getRightChild() {
+		return this.right;
+	}
+	
+	public void setLeftChild(BinaryNode <T> left) {
+		this.left = left;
+	}
+	
+	public void setRightChild(BinaryNode <T> right) {
+		this.right = right;
+	}
+
+	@Override
+	public int compareTo(T o) {
+		return this.element.compareTo(o);
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+	
 }
  

@@ -5,15 +5,15 @@ package estructuras;
  *
  * @param <Cliente>
  */
-public abstract class Node<T> {
-	public Object element;
+public abstract class Node<Cliente> {
+	public Cliente element;
 	
 	public Node() {
 		element = null;
 	}
-	public Node (T element) {
+	
+	public Node (Cliente element) {
 		this.element = element;
 	}
 
-	
 }

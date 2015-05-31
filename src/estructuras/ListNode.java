@@ -1,17 +1,17 @@
 package estructuras;
 
-public class ListNode<T> {
+public class ListNode<Cliente> extends Node {
 
-        public T element;
-        public ListNode<T> next;
-
-          // Constructors
-        public ListNode( T element ) {
-            this(element, null);
+        public ListNode<Cliente> next;
+        
+        public ListNode (Cliente element) {
+            super(element);
+            this.next = null;
         }
 
-        public ListNode(T element, ListNode<T> n) {
+        public ListNode (Cliente element, ListNode<Cliente> n) {
             this.element = element;
-            next    = n;
+            next = n;
         }
-    }
+        
+}

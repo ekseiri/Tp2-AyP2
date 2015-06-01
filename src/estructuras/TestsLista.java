@@ -65,7 +65,7 @@ public class TestsLista {
 		l.insert("elemento5");
 		
 		//estas guardando el size pero no hay forma de sacarlo
-		Assert.assertEquals("", 5, l.length, 0.0001);
+		Assert.assertEquals("", 5, l.getSize(), 0.0001);
 	}
 	
 	@Test
@@ -79,7 +79,7 @@ public class TestsLista {
 		l.delete("elemento3");
 		
 		//estas guardando el size pero no hay forma de sacarlo
-		Assert.assertEquals("",4, l.length, 0.0001);
+		Assert.assertEquals("",4, l.getSize(), 0.0001);
 		Assert.assertFalse(l.buscar("elemento3"));
 		Assert.assertTrue(l.buscar("elemento"));
 		Assert.assertTrue(l.buscar("elemento2"));
@@ -97,7 +97,7 @@ public class TestsLista {
 		l.insert("elemento5");
 		
 		l.removeAll();
-		Assert.assertEquals("",0, l.length, 0.0001);
+		Assert.assertEquals("",0, l.getSize(), 0.0001);
 		
 		Assert.assertNull(l.top);
 		Assert.assertNull(l.back);

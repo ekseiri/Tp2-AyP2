@@ -51,6 +51,9 @@ public class ListaEnlazada implements ListInterface<Object> {
 		back = null;
 		length=0;
 	}
-
+	
+	public long getSize(){
+		return this.length;
+	}
 
 }

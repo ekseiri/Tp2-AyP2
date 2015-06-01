@@ -3,7 +3,7 @@ package estructuras;
 import java.util.NoSuchElementException;
 
 
-public interface ListIteratorIterface<T> {
+public interface ListIteratorInterface<T> {
 	/**
 	 * Avanza
 	 */

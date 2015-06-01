@@ -63,7 +63,7 @@ public class SistemaDeAtencion {
 		}
 		
 		/*
-		int cantidad = 1;
+		int cantidad = 100;
 		
 		String[] patentes = PatenteGenerator.generar(cantidad);
 		

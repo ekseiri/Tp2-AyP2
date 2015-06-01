@@ -1,5 +1,7 @@
 package main;
 
+import java.util.Arrays;
+
 public class Cliente {
 	private String patente;
 	private String[] ultimaVisita;
@@ -31,7 +33,11 @@ public class Cliente {
 	 * @return the ultimaVisita
 	 */
 	public String[] getUltimaVisita() {
-		return ultimaVisita;
+		return this.ultimaVisita;
+	}
+	
+	public String getUltimaVisitaJoined() {
+		return String.join("-", Arrays.asList(this.ultimaVisita));
 	}
 
 	/**
@@ -72,4 +78,8 @@ public class Cliente {
 			
 	}
 	
+	public String toString() {
+		return "Patente: " + this.getPatente() + " Ultima Visita: " + this.getUltimaVisitaJoined() + 
+				" Cantidad de Visitas: " + this.getCantidadVisitas();
+	}
 }

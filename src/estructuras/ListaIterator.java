@@ -2,6 +2,7 @@ package estructuras;
 
 import java.util.NoSuchElementException;
 
+//
 public class ListaIterator implements ListIteratorInterface {
 	ListNode<?> actual = null;
 	ListNode top = null;

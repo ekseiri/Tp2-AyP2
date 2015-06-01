@@ -2,7 +2,7 @@ package estructuras;
 
 import java.util.NoSuchElementException;
 
-
+//
 public interface ListIteratorInterface<T> {
 	/**
 	 * Avanza

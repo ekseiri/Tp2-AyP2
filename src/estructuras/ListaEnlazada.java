@@ -43,10 +43,17 @@ public class ListaEnlazada implements ListInterface<Object> {
 	@Override
 	public boolean buscar(Object element) {
 		ListNode aux = top;
-		while (!aux.element.equals(element) || (aux != null)) {
+		boolean encontrado = false;
+		boolean hayElementos;
+		hayElementos = (top != null);
 
+		while (!encontrado && hayElementos) {
+			encontrado = (compare(aux.element, element));
+			hayElementos = (aux.next != null);
+			aux = aux.next;
 		}
-		return false;
+
+		return encontrado;
 	}
 
 	public void removeAll() {
@@ -57,6 +64,17 @@ public class ListaEnlazada implements ListInterface<Object> {
 
 	public long getSize() {
 		return this.length;
+	}
+
+	private boolean compare(Object element, Object element2) {
+		if (element == null || element2 == null) {
+			return false;
+		}
+		if (((String) element).compareTo((String) element2) == 0) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }

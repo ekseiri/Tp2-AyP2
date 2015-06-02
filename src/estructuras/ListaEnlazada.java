@@ -13,26 +13,42 @@ public class ListaEnlazada implements ListInterface<Object> {
 	}
 
 	public boolean isEmpty() {
-		return top == null;
+		return length == 0;
 	}
 
-	public void insert(Object element) throws NoSuchElementException {
+	public void insert(Object element) throws NullPointerException {
 		if (element == null) {
-			throw new NoSuchElementException("Elemento a insertar nulo");
+			throw new NullPointerException("Elemento a insertar nulo");
 		}
 		ListNode actual = new ListNode(element);
-		if (top == null) {
+		if (isEmpty()) {
 			top = actual;
 			back = actual;
 		} else {
-			actual.next = top;
-			top = actual;
+			back.next = actual;
+			back = actual;
 		}
 		length++;
 	}
 
 	public void delete(Object element) throws NoSuchElementException {
-		top = top.next;
+		ListNode aux = top;
+		boolean encontrado = false;
+		boolean hayElementos;
+		
+		hayElementos = (!isEmpty());
+		encontrado = (compare(aux.element, element));
+		
+		while (!encontrado && hayElementos) {
+			encontrado = (compare(aux.next.element, element));
+			hayElementos = (aux.next != null);
+			if(!encontrado){aux = aux.next;}
+		}
+		if (encontrado) {
+			aux.next = aux.next.next;
+		}else{
+			throw new NoSuchElementException("No se encontro el elemento a borrar");
+		}
 		length--;
 	}
 
@@ -46,7 +62,7 @@ public class ListaEnlazada implements ListInterface<Object> {
 		boolean encontrado = false;
 		boolean hayElementos;
 		hayElementos = (top != null);
-
+		
 		while (!encontrado && hayElementos) {
 			encontrado = (compare(aux.element, element));
 			hayElementos = (aux.next != null);

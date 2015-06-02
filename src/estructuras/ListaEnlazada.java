@@ -4,14 +4,24 @@ import java.util.NoSuchElementException;
 
 public class ListaEnlazada implements ListInterface<Object> {
 
-	ListNode<?> top = null;
-	ListNode<?> back = null;
-	private long length = 0;
+	private ListNode<?> top;
+	private ListNode<?> back;
+	private long length;
 
 	public ListaEnlazada() {
-
+		top = null;
+		back = null;
+		length = 0;
 	}
 
+	public ListNode getTop(){
+		return top;
+	}
+	
+	public ListNode getBack(){
+		return back;
+	}
+	
 	public boolean isEmpty() {
 		return length == 0;
 	}
@@ -52,10 +62,10 @@ public class ListaEnlazada implements ListInterface<Object> {
 		length--;
 	}
 
-	public ListIteratorInterface iterator(long posicion) {
+	public ListaIterator iterator(long posicion) {
 		return new ListaIterator(top, posicion);
 	}
-	public ListIteratorInterface iterator(){
+	public ListaIterator iterator(){
 		return new ListaIterator(top);
 	}
 	@Override

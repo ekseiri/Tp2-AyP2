@@ -34,10 +34,8 @@ public interface ListIteratorInterface<T> {
 	
 	
 	/**
-	 * Elimina x
-	 * @param element
-	 * @throws NoSuchElementException
+	 * Elimina el elemento actual
 	 */
-	public void delete(T element) throws NoSuchElementException;
+	public void delete();
 	
 }

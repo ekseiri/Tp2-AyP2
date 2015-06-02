@@ -19,7 +19,7 @@ public class TestsLista {
 	public void seInsertaCorrectamenteUnElemento() {
 		l.insert("elemento");
 		
-		Assert.assertEquals("elemento", l.top.element);
+		Assert.assertEquals("elemento", l.getTop().element);
 	}
 	
 	@Test
@@ -52,8 +52,8 @@ public class TestsLista {
 		l.insert("elemento4");
 		l.insert("elemento5");
 		
-		Assert.assertTrue(l.top.element.equals("elemento"));
-		Assert.assertTrue(l.back.element.equals("elemento5"));
+		Assert.assertTrue(l.getTop().element.equals("elemento"));
+		Assert.assertTrue(l.getBack().element.equals("elemento5"));
 	}
 	
 	@Test
@@ -97,7 +97,7 @@ public class TestsLista {
 		l.removeAll();
 		Assert.assertEquals("",0, l.getSize(), 0.0001);
 		
-		Assert.assertNull(l.top);
-		Assert.assertNull(l.back);
+		Assert.assertNull(l.getTop());
+		Assert.assertNull(l.getBack());
 	}
 }

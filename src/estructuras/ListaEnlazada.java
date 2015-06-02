@@ -52,10 +52,12 @@ public class ListaEnlazada implements ListInterface<Object> {
 		length--;
 	}
 
-	public ListIteratorInterface iterator(int posicion) {
+	public ListIteratorInterface iterator(long posicion) {
 		return new ListaIterator(top, posicion);
 	}
-
+	public ListIteratorInterface iterator(){
+		return new ListaIterator(top);
+	}
 	@Override
 	public boolean buscar(Object element) {
 		ListNode aux = top;

@@ -26,7 +26,7 @@ public interface ListInterface<T> {
 	 * devuelve un iterador, para la lista
 	 * @return
 	 */
-	public ListIteratorInterface iterator(int posicion);
+	public ListIteratorInterface<?> iterator(long posicion);
 	
 	/**
 	 * 

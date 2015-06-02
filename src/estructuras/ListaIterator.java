@@ -2,17 +2,16 @@ package estructuras;
 
 import java.util.NoSuchElementException;
 
-//
-public class ListaIterator implements ListIteratorInterface {
+public class ListaIterator implements ListIteratorInterface<Object> {
 	ListNode<?> actual = null;
-	ListNode top = null;
+	ListNode<?> top = null;
 
-	public ListaIterator(ListNode actual, int position)
+	public ListaIterator(ListNode<?> actual, long posicion)
 			throws NoSuchElementException {
 		this.top = actual;
 		this.actual = actual;
-		if (position != 0) {
-			for (int i = 1; i < position; i++) {
+		if (posicion != 0) {
+			for (int i = 1; i < posicion; i++) {
 				if (actual.next == null) {
 					throw new NoSuchElementException(
 							"Posicion mayor al numero de elementos");
@@ -22,8 +21,11 @@ public class ListaIterator implements ListIteratorInterface {
 		}
 
 	}
-
-	public void next() {
+	public ListaIterator(ListNode<?> actual){
+		this(actual,  0);
+	}
+	public void next() throws NoSuchElementException {
+		if (!hasNext()) throw new NoSuchElementException("No existe siguiente");
 		actual = actual.next;
 
 	}

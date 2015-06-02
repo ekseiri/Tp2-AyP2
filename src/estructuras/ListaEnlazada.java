@@ -42,17 +42,20 @@ public class ListaEnlazada implements ListInterface<Object> {
 
 	@Override
 	public boolean buscar(Object element) {
-		// TODO Auto-generated method stub
+		ListNode aux = top;
+		while (!aux.element.equals(element) || (aux != null)) {
+
+		}
 		return false;
 	}
 
 	public void removeAll() {
 		top = null;
 		back = null;
-		length=0;
+		length = 0;
 	}
-	
-	public long getSize(){
+
+	public long getSize() {
 		return this.length;
 	}
 

@@ -65,8 +65,16 @@ public class BinaryNode<T extends Comparable<? super T>> implements Comparable<T
 		return this.element.compareTo(o);
 	}
 	
+	public int compareTo(BinaryNode<T> o) {
+		return this.compareTo(o.getElement());
+	}
+	
 	public boolean equals(T o) {
 		return this.element.equals(o);
+	}
+	
+	public boolean equals(BinaryNode<T> o) {
+		return this.equals(o.getElement());
 	}
 
 	public int getHeight() {

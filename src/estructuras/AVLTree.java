@@ -2,7 +2,7 @@ package estructuras;
 
 public class AVLTree<T extends Comparable<? super T>> {
 	private BinaryNode<T> root;
-	
+		
 	public AVLTree() {
 		setRoot(null);
 	}
@@ -31,10 +31,7 @@ public class AVLTree<T extends Comparable<? super T>> {
 			return true;
 		
 		boolean mayores = contains(buscado, localRoot.getRightChild());
-		boolean menores = false;
-		
-		if (!mayores)
-			menores = contains(buscado, localRoot.getLeftChild());
+		boolean menores = contains(buscado, localRoot.getLeftChild());
 		
 		return  mayores ? mayores : menores; 
 	}
@@ -57,6 +54,25 @@ public class AVLTree<T extends Comparable<? super T>> {
 			printInOrderSubTree(localRoot.getLeftChild());
 			System.out.println(localRoot.toString());
 			printInOrderSubTree(localRoot.getRightChild());
+		}
+	}
+	
+	public void insert(BinaryNode<T> nodo, BinaryNode<T> localRoot) {
+		
+		if (localRoot.compareTo(nodo) < 0) { 
+			if (localRoot.getRightChild() != null) {
+				insert (nodo, localRoot.getRightChild());
+			} else {
+				localRoot.setRightChild(nodo);
+			}
+		}
+		
+		if (localRoot.compareTo(nodo) > 0) { 
+			if (localRoot.getLeftChild() != null) {
+				insert (nodo, localRoot.getLeftChild());
+			} else {
+				localRoot.setLeftChild(nodo);
+			}
 		}
 	}
 			

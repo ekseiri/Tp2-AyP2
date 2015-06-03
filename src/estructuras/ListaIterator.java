@@ -1,7 +1,10 @@
 package estructuras;
 
 import java.util.NoSuchElementException;
-
+/**
+ * Clase para iterar Lista Enlazada 
+ *
+ */
 public class ListaIterator<T> implements ListIteratorInterface<T> {
 	private ListNode<T> anterior = null;
 	private ListNode<T> top = null;

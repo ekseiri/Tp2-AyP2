@@ -2,6 +2,10 @@ package estructuras;
 
 import java.util.NoSuchElementException;
 
+/**
+ * Clase Lista Enlazada 
+ *
+ */
 public class ListaEnlazada<T> implements ListInterface<T> {
 
 	private ListNode<T> top;

@@ -2,7 +2,10 @@ package estructuras;
 
 import java.util.NoSuchElementException;
 
-//
+/**
+ * Interface de Lista 
+ *
+ */
 public interface ListInterface<T> {
 	
 	public boolean isEmpty();

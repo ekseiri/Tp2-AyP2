@@ -2,7 +2,10 @@ package estructuras;
 
 import java.util.NoSuchElementException;
 
-//
+/**
+ * Interface de iterador de Lista Enlazada 
+ *
+ */
 public interface ListIteratorInterface<T> {
 	/**
 	 * Avanza

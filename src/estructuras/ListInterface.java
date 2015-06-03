@@ -10,9 +10,9 @@ public interface ListInterface<T> {
 	/**
 	 * Inserta al final
 	 * @param element
-	 * @throws NoSuchElementException
+	 * @throws NullPointerException
 	 */
-	public void insert(T element) throws NoSuchElementException;
+	public void insert(T element) throws NullPointerException;
 	
 	
 	/**
@@ -26,7 +26,7 @@ public interface ListInterface<T> {
 	 * devuelve un iterador, para la lista
 	 * @return
 	 */
-	public ListIteratorInterface<?> iterator(long posicion);
+	public ListIteratorInterface<T> iterator(long posicion);
 	
 	/**
 	 * 

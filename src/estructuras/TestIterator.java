@@ -5,8 +5,8 @@ import org.junit.Test;
 
 public class TestIterator {
 
-	private ListaEnlazada l = new ListaEnlazada();
-	private ListaIterator it;
+	private ListaEnlazada<String> l = new ListaEnlazada();
+	private ListaIterator<String> it;
 
 	@Test
 	public void seCreaIterador() {

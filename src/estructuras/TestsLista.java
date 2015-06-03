@@ -6,11 +6,11 @@ import org.junit.Test;
 
 public class TestsLista {
 
-	private ListaEnlazada l = new ListaEnlazada(); 
+	private ListaEnlazada<String> l = new ListaEnlazada<String>(); 
 	
 	@Test
 	public void seCreaListaYEstaVacia() {
-		ListaEnlazada lista = new ListaEnlazada();
+		ListaEnlazada<String> lista = new ListaEnlazada<String>();
 		
 		Assert.assertTrue(lista.isEmpty());
 	}

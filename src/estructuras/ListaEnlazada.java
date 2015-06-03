@@ -2,10 +2,10 @@ package estructuras;
 
 import java.util.NoSuchElementException;
 
-public class ListaEnlazada implements ListInterface<Object> {
+public class ListaEnlazada<T> implements ListInterface<T> {
 
-	private ListNode<?> top;
-	private ListNode<?> back;
+	private ListNode<T> top;
+	private ListNode<T> back;
 	private long length;
 
 	public ListaEnlazada() {
@@ -14,69 +14,73 @@ public class ListaEnlazada implements ListInterface<Object> {
 		length = 0;
 	}
 
-	public ListNode getTop(){
+	public ListNode<T> getTop() {
 		return top;
 	}
-	
-	public ListNode getBack(){
+
+	public ListNode<T> getBack() {
 		return back;
 	}
-	
+
 	public boolean isEmpty() {
 		return length == 0;
 	}
 
-	public void insert(Object element) throws NullPointerException {
+	public void insert(T element) throws NullPointerException {
 		if (element == null) {
 			throw new NullPointerException("Elemento a insertar nulo");
 		}
-		ListNode actual = new ListNode(element);
+		ListNode<T> actual = new ListNode<T>(element);
 		if (isEmpty()) {
 			top = actual;
-			back = actual;
 		} else {
 			back.next = actual;
-			back = actual;
 		}
+		back = actual;
 		length++;
 	}
 
 	public void delete(Object element) throws NoSuchElementException {
-		ListNode aux = top;
+		ListNode<T> aux = top;
 		boolean encontrado = false;
 		boolean hayElementos;
-		
+
 		hayElementos = (!isEmpty());
-		encontrado = (compare(aux.element, element));
-		
+		encontrado = aux.element.equals( element);
+
 		while (!encontrado && hayElementos) {
-			encontrado = (compare(aux.next.element, element));
+			encontrado = aux.next.element.equals(element);
 			hayElementos = (aux.next != null);
-			if(!encontrado){aux = aux.next;}
+			if (!encontrado) {
+				aux = aux.next;
+			}
 		}
 		if (encontrado) {
 			aux.next = aux.next.next;
-		}else{
-			throw new NoSuchElementException("No se encontro el elemento a borrar");
+		} else {
+			throw new NoSuchElementException(
+					"No se encontro el elemento a borrar");
 		}
 		length--;
 	}
 
-	public ListaIterator iterator(long posicion) {
-		return new ListaIterator(top, posicion);
+	public ListaIterator<T> iterator(long posicion) {
+		return new ListaIterator<T>(top, posicion);
 	}
-	public ListaIterator iterator(){
-		return new ListaIterator(top);
+
+	public ListaIterator<T> iterator() {
+		return new ListaIterator<T>(top);
 	}
+
 	@Override
 	public boolean buscar(Object element) {
-		ListNode aux = top;
+		ListNode<T> aux = top;
 		boolean encontrado = false;
 		boolean hayElementos;
 		hayElementos = (top != null);
-		
+
 		while (!encontrado && hayElementos) {
-			encontrado = (compare(aux.element, element));
+			encontrado = aux.element.equals(element);
 			hayElementos = (aux.next != null);
 			aux = aux.next;
 		}
@@ -92,17 +96,6 @@ public class ListaEnlazada implements ListInterface<Object> {
 
 	public long getSize() {
 		return this.length;
-	}
-
-	private boolean compare(Object element, Object element2) {
-		if (element == null || element2 == null) {
-			return false;
-		}
-		if (((String) element).compareTo((String) element2) == 0) {
-			return true;
-		} else {
-			return false;
-		}
 	}
 
 }

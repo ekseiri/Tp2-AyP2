@@ -53,7 +53,9 @@ public class ListaEnlazada<T> implements ListInterface<T> {
 		encontrado = aux.element.equals( element);
 
 		while (!encontrado && hayElementos) {
-			encontrado = aux.next.element.equals(element);
+			if(aux.next!=null){
+				encontrado = aux.next.element.equals(element);
+			}
 			hayElementos = (aux.next != null);
 			if (!encontrado) {
 				aux = aux.next;

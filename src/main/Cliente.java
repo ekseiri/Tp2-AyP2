@@ -54,7 +54,7 @@ public class Cliente implements Comparable<Cliente> {
 	 * @return the cantidadVisitas
 	 */
 	public int getCantidadVisitas() {
-		return cantidadVisitas;
+		return this.cantidadVisitas;
 	}
 
 	public void addVisita(String fecha) {

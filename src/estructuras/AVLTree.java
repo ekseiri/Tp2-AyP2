@@ -25,19 +25,36 @@ public class AVLTree<T extends Comparable<? super T>> {
 		this.root = root;
 	}
 	
-	public BinaryNode<T> contains(T buscado){
+	public boolean contains(T buscado){
 		return contains(buscado, this.root);
 	}
 	
-	private BinaryNode<T> contains(T buscado, BinaryNode<T> localRoot) {
+	private boolean contains(T buscado, BinaryNode<T> localRoot) {
+		if (localRoot == null)
+			return false;
+		
+		if (localRoot.getElement().equals(buscado))
+			return true;
+		
+		boolean mayores = contains(buscado, localRoot.getRightChild());
+		boolean menores = contains(buscado, localRoot.getLeftChild());
+		
+		return  (mayores) ? mayores : menores; 
+	}
+	
+	public BinaryNode<T> buscar(T buscado){
+		return buscar(buscado, this.root);
+	}
+	
+	private BinaryNode<T> buscar(T buscado, BinaryNode<T> localRoot) {
 		if (localRoot == null)
 			return null;
 		
 		if (localRoot.getElement().equals(buscado))
 			return localRoot;
 		
-		BinaryNode<T> mayores = contains(buscado, localRoot.getRightChild());
-		BinaryNode<T> menores = contains(buscado, localRoot.getLeftChild());
+		BinaryNode<T> mayores = buscar(buscado, localRoot.getRightChild());
+		BinaryNode<T> menores = buscar(buscado, localRoot.getLeftChild());
 		
 		return  (mayores != null) ? mayores : menores; 
 	}
@@ -64,10 +81,14 @@ public class AVLTree<T extends Comparable<? super T>> {
 	}
 	
 	public void insert(T element) {
-		this.insert(new BinaryNode<T>(element), this.getRoot());
+		if (this.getRoot() == null)
+			this.setRoot(new BinaryNode<T>(element));
+		else
+			this.insert(new BinaryNode<T>(element), this.getRoot());
 	}
 	
 	private void insert(BinaryNode<T> nodo, BinaryNode<T> localRoot) {
+		
 		if (localRoot.compareTo(nodo) < 0) { 
 			if (localRoot.getRightChild() != null) {
 				insert (nodo, localRoot.getRightChild());

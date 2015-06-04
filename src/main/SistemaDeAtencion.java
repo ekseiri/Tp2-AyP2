@@ -10,19 +10,23 @@ import java.util.Set;
 import Utils.PatenteGenerator;
 
 public class SistemaDeAtencion {
+	public static Clientes clientes;
 	
-	public final static void clear() {
-	   for (int i = 0; i < 100; i++)
-		   prn("");
+	public static void prepareStuff(String msg) {
+		prn(msg);
+		PatenteGenerator.main(new String[0]);
+		clientes = new Clientes("Patentes.csv");
+		prn("Done");
+		prn("");
 	}
 	
-	private static void header(){
+	private static void header() {
 		prn(String.format("%-20s","Sistema de Atención al Cliente"));
 		prn(String.format("%-20s","------------------------------"));
 		prn("");
 	}
 	
-	private static void menu(){
+	private static void menu() {
 		prn("Seleccionar una opción:");
 		prn("1.- Listado alfabetico de clientes (Segun patente)");
 		prn("2.- Listar clientes segun frecuencia de visita");
@@ -31,6 +35,17 @@ public class SistemaDeAtencion {
 		prn("5.- Salir");
 		prn("");
 	}
+	
+	private static void menuArchivoDePatentes() {
+		Set<Integer> opcionesValidas  = new HashSet<Integer>(Arrays.asList(new Integer[]{1,2,3,4,5}));
+		
+		prn("1.- Indicar archivo de datos pregenerado");
+		prn("2.- Generar un nuevo archivo de datos aleatorio");
+		prn("3.- Volver");
+		
+		
+	}
+	
 	private static void prn(String msg) {
 		System.out.println(msg);
 	}
@@ -41,12 +56,14 @@ public class SistemaDeAtencion {
 		Set<Integer> opcionesValidas  = new HashSet<Integer>(Arrays.asList(new Integer[]{1,2,3,4,5}));
 		int opcion = -1;
 		
+		prepareStuff("Preparando un conjunto de patentes inicial");
 		header();
 		menu();
 		
 		while (!opcionesValidas.contains(opcion)){
 			
 			System.out.print("Seleccionar Opcion: ");
+			
 			try {
 				lector = new BufferedReader(new InputStreamReader(System.in));
 				linea = lector.readLine();
@@ -60,6 +77,17 @@ public class SistemaDeAtencion {
 				System.out.println("Ingreso Inválido");
 				opcion = -1;
 			}
+		}
+		
+		switch(opcion) {
+			case 1:	clientes.printOrdenAlfabetico();
+					break;
+			case 2: clientes.printOrdenPorFrecuencia();
+					break;
+			case 3: clientes.printDescuentosPorDia();
+					break;
+			case 4: 
+			
 		}
 		
 		/*

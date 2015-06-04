@@ -2,6 +2,7 @@ package estructuras;
 
 public class AVLTree<T extends Comparable<? super T>> {
 	private BinaryNode<T> root;
+	private int size;
 		
 	public AVLTree() {
 		setRoot(null);
@@ -9,8 +10,13 @@ public class AVLTree<T extends Comparable<? super T>> {
 	
 	public AVLTree(BinaryNode<T> root) {
 		this.setRoot(root);
+		size = 0;
 	}
-
+	
+	public int getSize(){
+		return this.size;
+	}
+	
 	public BinaryNode<T> getRoot() {
 		return this.root;
 	}
@@ -19,21 +25,21 @@ public class AVLTree<T extends Comparable<? super T>> {
 		this.root = root;
 	}
 	
-	public boolean contains(T buscado){
+	public BinaryNode<T> contains(T buscado){
 		return contains(buscado, this.root);
 	}
 	
-	private boolean contains(T buscado, BinaryNode<T> localRoot) {
+	private BinaryNode<T> contains(T buscado, BinaryNode<T> localRoot) {
 		if (localRoot == null)
-			return false;
+			return null;
 		
 		if (localRoot.getElement().equals(buscado))
-			return true;
+			return localRoot;
 		
-		boolean mayores = contains(buscado, localRoot.getRightChild());
-		boolean menores = contains(buscado, localRoot.getLeftChild());
+		BinaryNode<T> mayores = contains(buscado, localRoot.getRightChild());
+		BinaryNode<T> menores = contains(buscado, localRoot.getLeftChild());
 		
-		return  mayores ? mayores : menores; 
+		return  (mayores != null) ? mayores : menores; 
 	}
 	
 	public BinaryNode<T> getMinor() {
@@ -57,13 +63,17 @@ public class AVLTree<T extends Comparable<? super T>> {
 		}
 	}
 	
-	public void insert(BinaryNode<T> nodo, BinaryNode<T> localRoot) {
-		
+	public void insert(T element) {
+		this.insert(new BinaryNode<T>(element), this.getRoot());
+	}
+	
+	private void insert(BinaryNode<T> nodo, BinaryNode<T> localRoot) {
 		if (localRoot.compareTo(nodo) < 0) { 
 			if (localRoot.getRightChild() != null) {
 				insert (nodo, localRoot.getRightChild());
 			} else {
 				localRoot.setRightChild(nodo);
+				size++;
 			}
 		}
 		
@@ -72,6 +82,7 @@ public class AVLTree<T extends Comparable<? super T>> {
 				insert (nodo, localRoot.getLeftChild());
 			} else {
 				localRoot.setLeftChild(nodo);
+				size++;
 			}
 		}
 	}

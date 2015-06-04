@@ -2,7 +2,7 @@ package main;
 
 import java.util.Arrays;
 
-public class Cliente {
+public class Cliente implements Comparable<Cliente> {
 	private String patente;
 	private String[] ultimaVisita;
 	private int cantidadVisitas;
@@ -66,7 +66,10 @@ public class Cliente {
 	/**
 	 * @return descuento
 	 */
-	public boolean isDescuento() {
+	public boolean isDescuento(String fecha) {
+		if (this.ultimaVisita[1] != fecha.split("-")[1])
+				descuento = false;
+		
 		return descuento;
 	}
 
@@ -74,12 +77,21 @@ public class Cliente {
 	 * 
 	 */
 	private void setDescuento() {
-		this.descuento = (this.cantidadVisitas % 2 == 0) ? false : true;
-			
+		this.descuento = (this.cantidadVisitas % 2 == 0) ? false : true;		
 	}
 	
 	public String toString() {
 		return "Patente: " + this.getPatente() + " Ultima Visita: " + this.getUltimaVisitaJoined() + 
 				" Cantidad de Visitas: " + this.getCantidadVisitas();
 	}
+
+	@Override
+	public int compareTo(Cliente o) {
+		return this.getPatente().compareTo(o.getPatente());
+	}
+
+	public boolean equals(Cliente o) {
+		return this.getPatente().equals(o.getPatente());
+	}
+	
 }

@@ -53,10 +53,12 @@ public class BinaryNode<T extends Comparable<? super T>> implements Comparable<T
 	}
 	
 	public void setLeftChild(BinaryNode <T> left) {
+		left.setParent(this);
 		this.left = left;
 	}
 	
 	public void setRightChild(BinaryNode <T> right) {
+		right.setParent(this);
 		this.right = right;
 	}
 

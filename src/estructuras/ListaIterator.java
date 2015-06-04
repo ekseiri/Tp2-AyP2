@@ -9,7 +9,11 @@ public class ListaIterator<T> implements ListIteratorInterface<T> {
 	private ListNode<T> anterior = null;
 	private ListNode<T> top = null;
 
-	public ListaIterator(ListNode<T> first, long posicion) throws NullPointerException, NoSuchElementException{
+	public ListaIterator(ListNode<T> actual) throws NoSuchElementException {
+		this(actual, 0);
+	}
+	
+	public ListaIterator(ListNode<T> first, long posicion) throws NullPointerException, NoSuchElementException {
 
 		if (first == null) {
 			throw new NullPointerException("Lista Vacia, nada para iterar");
@@ -37,10 +41,6 @@ public class ListaIterator<T> implements ListIteratorInterface<T> {
 	private ListNode<T> actual() {
 
 		return anterior == null ? top : anterior.next;
-	}
-
-	public ListaIterator(ListNode<T> actual) throws NoSuchElementException{
-		this(actual, 0);
 	}
 
 	public void next() throws NoSuchElementException {

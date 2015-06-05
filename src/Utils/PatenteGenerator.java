@@ -17,7 +17,7 @@ import java.util.Random;
 public class PatenteGenerator
 {
 	
-	public static void main (String args[] ) {
+	public static void main(String args[]) {
 		int[] argumentos = null;
 		
 		if ((args.length > 0) && (args.length < 3)) {

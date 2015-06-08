@@ -13,9 +13,9 @@ import estructuras.ListaIterator;
 public class SistemaDeAtencion {
 	private AVLTree<Cliente> clientes = null;
 	private int maxVisitas = 0;
-	private ListaEnlazada<Cliente>[] ordenFrecuencia;
+	private ListaEnlazada<Cliente>[] ordenFrecuencia = null;
 	private ListaEnlazada<ListaEnlazada<String>> diasConDescuento = new ListaEnlazada<ListaEnlazada<String>>();
-	private String diaUltimaOperacion;
+	private String diaUltimaOperacion = "";
 	
 	/**
 	 * 
@@ -66,41 +66,71 @@ public class SistemaDeAtencion {
 	}
 	
 	private void generarOrdenPorFrecuencia(BinaryNode<Cliente> localRoot) {
-		ordenFrecuencia = new ListaEnlazada[maxVisitas];
+		if (ordenFrecuencia == null)
+			ordenFrecuencia = new ListaEnlazada[maxVisitas];
 		
 		if (localRoot != null){
-			localRoot.getLeftChild();
-			ordenFrecuencia[localRoot.getElement().getCantidadVisitas()].insert(localRoot.getElement());
-			localRoot.getRightChild();
+			generarOrdenPorFrecuencia(localRoot.getLeftChild());
+			
+			if (ordenFrecuencia[localRoot.getElement().getCantidadVisitas() - 1] == null)
+				ordenFrecuencia[localRoot.getElement().getCantidadVisitas() - 1] = new ListaEnlazada<Cliente>();
+			
+			ordenFrecuencia[localRoot.getElement().getCantidadVisitas() - 1].insert(localRoot.getElement());
+			
+			generarOrdenPorFrecuencia(localRoot.getRightChild());
 		}
 	}
 	
+	
+	/**
+	 * Se imprime en orden de menor cantidad a mayor cantidad de visita.
+	 */
 	public void printOrdenPorFrecuencia() {
 		this.generarOrdenPorFrecuencia();
 		
 		for (int i = 0; i < ordenFrecuencia.length; i++) {
-			ListaIterator<Cliente> iter = ordenFrecuencia[i].iterator();
-			
-			while (iter.hasNext()) {
-				System.out.println(iter.getElement().toString());
-				iter.next();
+			//En caso de que no existan clientes con X cantidad de visitas
+			if (ordenFrecuencia[i] != null) {
+				ListaIterator<Cliente> iter = null;
+				
+				
+				iter = ordenFrecuencia[i].iterator();
+				
+				
+				while (iter.hasNext()) {
+					System.out.println(iter.getElement().toString());
+					iter.next();
+				}
 			}
 		}
 	}
 	
 	public void printDescuentosPorDia() {
 		ListaIterator<ListaEnlazada<String>> outerIter = this.diasConDescuento.iterator();
-		ListaIterator<String> innerIter = null;
+		ListaIterator<String> innerIter = outerIter.getElement().iterator();
+		
+		System.out.println(innerIter.getElement());
+		while (innerIter.hasNext()) {
+			innerIter.next();
+			if (innerIter.hasNext())
+				System.out.print(innerIter.getElement() + ", ");
+			else
+				System.out.println(innerIter.getElement());
+		}
 		
 		while (outerIter.hasNext()) {
+			outerIter.next();
 			innerIter = outerIter.getElement().iterator();
 			
+			
+			System.out.println(innerIter.getElement());
 			while (innerIter.hasNext()) {
-				System.out.println(innerIter.getElement());
 				innerIter.next();
+				if (innerIter.hasNext())
+					System.out.print(innerIter.getElement() + ", ");
+				else
+					System.out.println(innerIter.getElement());
 			}
-		
-			outerIter.next();
 		}
 	}
 	
@@ -115,16 +145,20 @@ public class SistemaDeAtencion {
 		} else {
 			visitante = clientes.buscar(visitante).getElement();
 			if (visitante.isDescuento(fecha)) {
-				if (diaUltimaOperacion != fecha.split("-")[0]) {
+				if (!diaUltimaOperacion.equals(fecha.split("-")[0])) {
 					this.diasConDescuento.insert(new ListaEnlazada<String>());
 					this.diasConDescuento.getBack().element.insert(fecha);
 					this.diasConDescuento.getBack().element.insert(patente);
 				} else {
 					this.diasConDescuento.getBack().element.insert(patente);
 				}
+				this.diaUltimaOperacion = fecha.split("-")[0];
 			}
 			visitante.addVisita(fecha);
 		}
+		
+		if (visitante.getCantidadVisitas() > this.maxVisitas)
+			this.maxVisitas = visitante.getCantidadVisitas();
 	}
 	
 }

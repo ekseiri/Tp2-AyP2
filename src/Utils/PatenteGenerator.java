@@ -14,8 +14,7 @@ import java.util.Random;
  *
  */
 
-public class PatenteGenerator
-{
+public class PatenteGenerator {
 	
 	public static void main(String args[]) {
 		int[] argumentos = null;
@@ -25,8 +24,10 @@ public class PatenteGenerator
 			System.out.println("Usage:");
 			System.out.println("PatenteGenerator <Cant. de autos a generar> <Cantidad de Meses a Procesar> <Cantidad de autos por dia>");
 		}
+		
 		else if (args.length == 0)
-			shuffle(PatenteGenerator.generar(10),6,4);
+			shuffle(PatenteGenerator.generar(100),3,4);
+		
 		else {
 			
 			try {

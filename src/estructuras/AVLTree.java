@@ -33,7 +33,7 @@ public class AVLTree<T extends Comparable<? super T>> {
 		if (localRoot == null)
 			return false;
 		
-		if (localRoot.getElement().equals(buscado))
+		if (localRoot.getElement().compareTo(buscado) == 0)
 			return true;
 		
 		boolean mayores = contains(buscado, localRoot.getRightChild());
@@ -50,7 +50,7 @@ public class AVLTree<T extends Comparable<? super T>> {
 		if (localRoot == null)
 			return null;
 		
-		if (localRoot.getElement().equals(buscado))
+		if (localRoot.getElement().compareTo(buscado) == 0)
 			return localRoot;
 		
 		BinaryNode<T> mayores = buscar(buscado, localRoot.getRightChild());
@@ -81,7 +81,7 @@ public class AVLTree<T extends Comparable<? super T>> {
 	}
 	
 	public void insert(T element) {
-		if (this.getRoot() == null)
+ 		if (this.getRoot() == null)
 			this.setRoot(new BinaryNode<T>(element));
 		else
 			this.insert(new BinaryNode<T>(element), this.getRoot());

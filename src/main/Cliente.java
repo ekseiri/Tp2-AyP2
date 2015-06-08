@@ -60,14 +60,14 @@ public class Cliente implements Comparable<Cliente> {
 	public void addVisita(String fecha) {
 		this.setUltimaVisita(fecha);
 		this.cantidadVisitas++;
-		this.setDescuento();
+		this.setDescuento(fecha);
 	}
 
 	/**
 	 * @return descuento
 	 */
 	public boolean isDescuento(String fecha) {
-		if (this.ultimaVisita[1] != fecha.split("-")[1])
+		if (!this.ultimaVisita[1].equals(fecha.split("-")[1]))
 				descuento = false;
 		
 		return descuento;
@@ -76,8 +76,8 @@ public class Cliente implements Comparable<Cliente> {
 	/**
 	 * 
 	 */
-	private void setDescuento() {
-		this.descuento = (this.cantidadVisitas % 2 == 0) ? false : true;		
+	private void setDescuento(String fecha ) {
+		this.descuento = !(descuento);		
 	}
 	
 	public String toString() {
@@ -89,9 +89,10 @@ public class Cliente implements Comparable<Cliente> {
 	public int compareTo(Cliente o) {
 		return this.getPatente().compareTo(o.getPatente());
 	}
-
-	public boolean equals(Cliente o) {
-		return this.getPatente().equals(o.getPatente());
-	}
 	
+	/*
+	public boolean equals(Cliente o) {
+		return this.getPatente().compareTo(o.getPatente()) == 0;
+	}
+	*/
 }

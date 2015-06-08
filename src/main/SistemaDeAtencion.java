@@ -1,105 +1,130 @@
 package main;
 
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
-import Utils.PatenteGenerator;
+import estructuras.AVLTree;
+import estructuras.BinaryNode;
+import estructuras.ListNode;
+import estructuras.ListaEnlazada;
+import estructuras.ListaIterator;
 
 public class SistemaDeAtencion {
-	public static Clientes clientes;
+	private AVLTree<Cliente> clientes = null;
+	private int maxVisitas = 0;
+	private ListaEnlazada<Cliente>[] ordenFrecuencia;
+	private ListaEnlazada<ListaEnlazada<String>> diasConDescuento = new ListaEnlazada<ListaEnlazada<String>>();
+	private String diaUltimaOperacion;
 	
-	public static void prepareStuff(String msg) {
-		prn(msg);
-		PatenteGenerator.main(new String[0]);
-		clientes = new Clientes("Patentes.csv");
-		prn("Done");
-		prn("");
+	/**
+	 * 
+	 */
+	public SistemaDeAtencion(String archivoDePatentes){
+		regenClients(archivoDePatentes);
 	}
 	
-	private static void header() {
-		prn(String.format("%-20s","Sistema de Atención al Cliente"));
-		prn(String.format("%-20s","------------------------------"));
-		prn("");
-	}
-	
-	private static void menu() {
-		prn("Seleccionar una opción:");
-		prn("1.- Listado alfabetico de clientes (Segun patente)");
-		prn("2.- Listar clientes segun frecuencia de visita");
-		prn("3.- Listar descuentos realizados por dia");
-		prn("4.- Configurar/Generar archivo de datos de entrada");
-		prn("5.- Salir");
-		prn("");
-	}
-	
-	private static void menuArchivoDePatentes() {
-		Set<Integer> opcionesValidas  = new HashSet<Integer>(Arrays.asList(new Integer[]{1,2,3,4,5}));
+	public void regenClients(String archivoDePatentes) {
+		BufferedReader file = null; 
+		String linea[] = null;
+		clientes = new AVLTree<Cliente>();
 		
-		prn("1.- Indicar archivo de datos pregenerado");
-		prn("2.- Generar un nuevo archivo de datos aleatorio");
-		prn("3.- Volver");
+		try {
+			file = new BufferedReader(new FileReader(archivoDePatentes));
+			linea = file.readLine().split(",");
+		} catch (IOException|NullPointerException e) {
+			if (e instanceof NullPointerException){
+				System.out.println("Archivo vacio");
+				e.printStackTrace();
+			} else {
+				e.printStackTrace();
+			}
+		}
 		
-		
-	}
-	
-	private static void prn(String msg) {
-		System.out.println(msg);
-	}
-	
-	public static void main(String[] args) {
-		BufferedReader lector;
-		String linea = null;
-		Set<Integer> opcionesValidas  = new HashSet<Integer>(Arrays.asList(new Integer[]{1,2,3,4,5}));
-		int opcion = -1;
-		
-		prepareStuff("Preparando un conjunto de patentes inicial");
-		header();
-		menu();
-		
-		while (!opcionesValidas.contains(opcion)){
-			
-			System.out.print("Seleccionar Opcion: ");
+		while (linea != null) {
+			this.addVisita(linea[0], linea[1]);
 			
 			try {
-				lector = new BufferedReader(new InputStreamReader(System.in));
-				linea = lector.readLine();
+				String line = file.readLine();
+				if (line != null) {
+					linea = line.split(",");
+				} else
+					linea = null;
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 			
-			try {
-				opcion = Integer.parseInt(linea);
-			} catch (NumberFormatException e) {
-				System.out.println("Ingreso Inválido");
-				opcion = -1;
+		}
+	}
+	
+	public void printOrdenAlfabetico() {
+		this.clientes.printInOrder();
+	}
+	
+	private void generarOrdenPorFrecuencia() {
+		this.generarOrdenPorFrecuencia(this.clientes.getRoot());
+	}
+	
+	private void generarOrdenPorFrecuencia(BinaryNode<Cliente> localRoot) {
+		ordenFrecuencia = new ListaEnlazada[maxVisitas];
+		
+		if (localRoot != null){
+			localRoot.getLeftChild();
+			ordenFrecuencia[localRoot.getElement().getCantidadVisitas()].insert(localRoot.getElement());
+			localRoot.getRightChild();
+		}
+	}
+	
+	public void printOrdenPorFrecuencia() {
+		this.generarOrdenPorFrecuencia();
+		
+		for (int i = 0; i < ordenFrecuencia.length; i++) {
+			ListaIterator<Cliente> iter = ordenFrecuencia[i].iterator();
+			
+			while (iter.hasNext()) {
+				System.out.println(iter.getElement().toString());
+				iter.next();
 			}
 		}
-		
-		switch(opcion) {
-			case 1:	clientes.printOrdenAlfabetico();
-					break;
-			case 2: clientes.printOrdenPorFrecuencia();
-					break;
-			case 3: clientes.printDescuentosPorDia();
-					break;
-			case 4: 
-			
-		}
-		
-		/*
-		int cantidad = 100;
-		
-		String[] patentes = PatenteGenerator.generar(cantidad);
-		
-		for (int i = 0; i < patentes.length; i++)
-		{
-			System.out.println(patentes[i].toString());
-		}
-		*/
 	}
-
+	
+	public void printDescuentosPorDia() {
+		ListaIterator<ListaEnlazada<String>> outerIter = this.diasConDescuento.iterator();
+		ListaIterator<String> innerIter = null;
+		
+		while (outerIter.hasNext()) {
+			innerIter = outerIter.getElement().iterator();
+			
+			while (innerIter.hasNext()) {
+				System.out.println(innerIter.getElement());
+				innerIter.next();
+			}
+		
+			outerIter.next();
+		}
+	}
+	
+	
+	
+	public void addVisita(String patente, String fecha) {
+		
+		Cliente visitante = new Cliente(patente, fecha);
+				
+		if (!clientes.contains(visitante)) {
+			clientes.insert(visitante);
+		} else {
+			visitante = clientes.buscar(visitante).getElement();
+			if (visitante.isDescuento(fecha)) {
+				if (diaUltimaOperacion != fecha.split("-")[0]) {
+					this.diasConDescuento.insert(new ListaEnlazada<String>());
+					this.diasConDescuento.getBack().element.insert(fecha);
+					this.diasConDescuento.getBack().element.insert(patente);
+				} else {
+					this.diasConDescuento.getBack().element.insert(patente);
+				}
+			}
+			visitante.addVisita(fecha);
+		}
+	}
+	
 }

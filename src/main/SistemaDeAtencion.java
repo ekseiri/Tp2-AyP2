@@ -4,14 +4,14 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-import estructuras.AVLTree;
+import estructuras.BinaryTree;
 import estructuras.BinaryNode;
 import estructuras.ListNode;
 import estructuras.ListaEnlazada;
 import estructuras.ListaIterator;
 
 public class SistemaDeAtencion {
-	private AVLTree<Cliente> clientes = null;
+	private BinaryTree<Cliente> clientes = null;
 	private int maxVisitas = 0;
 	private ListaEnlazada<Cliente>[] ordenFrecuencia = null;
 	private ListaEnlazada<ListaEnlazada<String>> diasConDescuento = new ListaEnlazada<ListaEnlazada<String>>();
@@ -27,7 +27,7 @@ public class SistemaDeAtencion {
 	public void regenClients(String archivoDePatentes) {
 		BufferedReader file = null; 
 		String linea[] = null;
-		clientes = new AVLTree<Cliente>();
+		clientes = new BinaryTree<Cliente>();
 		
 		try {
 			file = new BufferedReader(new FileReader(archivoDePatentes));
@@ -96,10 +96,10 @@ public class SistemaDeAtencion {
 				
 				iter = ordenFrecuencia[i].iterator();
 				
-				
+				System.out.println(iter.getElement().toString());
 				while (iter.hasNext()) {
-					System.out.println(iter.getElement().toString());
 					iter.next();
+					System.out.println(iter.getElement().toString());
 				}
 			}
 		}

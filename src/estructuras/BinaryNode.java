@@ -6,7 +6,6 @@ public class BinaryNode<T extends Comparable<? super T>> implements Comparable<T
 	private BinaryNode<T> childOf;
 	private BinaryNode<T> left;
 	private BinaryNode<T> right;
-	private int height;
 	
 	public BinaryNode (T element) {
 		this(element, null);
@@ -21,15 +20,6 @@ public class BinaryNode<T extends Comparable<? super T>> implements Comparable<T
 		this.childOf = parent;
 		this.left = left;
 		this.right = right;
-		
-		if ((left == null) && (right == null))
-			this.setHeight(1);
-		else if (left == null)
-			this.setHeight(right.getHeight() + 1);
-		else if (right == null)
-			this.setHeight(left.getHeight() +1);
-		else
-			this.setHeight(Math.max(left.getHeight(), right.getHeight()) + 1);
 	}
 	
 	public T getElement() {
@@ -79,14 +69,6 @@ public class BinaryNode<T extends Comparable<? super T>> implements Comparable<T
 		return this.equals(o.getElement());
 	}
 
-	public int getHeight() {
-		return height;
-	}
-
-	public void setHeight(int height) {
-		this.height = height;
-	}
-	
 	public String toString(){
 		return this.getElement().toString();
 	}

@@ -16,6 +16,14 @@ import java.util.Random;
 
 public class PatenteGenerator {
 	
+	private static int randInt(int min, int max) {
+
+	    Random rand = new Random();
+	    int randomNum = rand.nextInt((max - min) + 1) + min;
+
+	    return randomNum;
+	}
+	
 	public static void main(String args[]) {
 		int[] argumentos = null;
 		
@@ -26,7 +34,7 @@ public class PatenteGenerator {
 		}
 		
 		else if (args.length == 0)
-			shuffle(PatenteGenerator.generar(100),3,4);
+			shuffle(PatenteGenerator.generar(200),6,10);
 		
 		else {
 			
@@ -84,6 +92,7 @@ public class PatenteGenerator {
 		PrintWriter output = null;
 		int dia;
 		int mes;
+		Random rnd = new Random();
 		
 		try {
 			output = new PrintWriter(new FileWriter("Patentes.csv"));
@@ -97,8 +106,8 @@ public class PatenteGenerator {
 			for (int j = 1; j <= 30; j++) {
 				dia = j;
 				
-				for (int k = 0; k < autosPorDia; k++) {
-					seleccionado = patentes[((int) (Math.random() * (patentes.length * ((int) (Math.random() * 11))))) % patentes.length ];
+				for (int k = 0; k < autosPorDia; k++) {				
+					seleccionado = patentes[rnd.nextInt(patentes.length)];
 					fecha = dia  + "-" + mes + "-2015";
 					
 					output.println(seleccionado + "," + fecha);

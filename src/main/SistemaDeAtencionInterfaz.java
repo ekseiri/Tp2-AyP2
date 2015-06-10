@@ -236,10 +236,28 @@ public class SistemaDeAtencionInterfaz {
 			}
 		}
 		
-		PatenteGenerator.shuffle(PatenteGenerator.generar(autos),meses,autosPD);
-		clientes = new SistemaDeAtencion("Patentes.csv");
-		prn("Done");
-		prn("");
+		if (new File("Patentes.csv").isFile()) {
+			linea = "";
+			while ((!linea.equals("s")) && (!linea.equals("n"))) {
+				prn ("");
+				prn ("Sobreescribir archivo de patentes? (s/n)");
+				
+				try {
+					lector = new BufferedReader(new InputStreamReader(System.in));
+					linea = lector.readLine().toLowerCase().trim();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			
+		}
+			 
+		if (linea.equals("s")) {
+			PatenteGenerator.shuffle(PatenteGenerator.generar(autos),meses,autosPD);
+			clientes = new SistemaDeAtencion("Patentes.csv");
+			prn("Done");
+			prn("");
+		}
 		
 	}
 	
@@ -249,7 +267,7 @@ public class SistemaDeAtencionInterfaz {
 	
 	public static void main(String[] args) {
 		
-		prepareStuff("Preparando un conjunto de patentes inicial");
+		prepareStuff("Preparando el conjunto de patentes inicial");
 		header();
 		menu();
 		

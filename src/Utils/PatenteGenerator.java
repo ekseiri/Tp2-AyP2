@@ -18,6 +18,9 @@ public class PatenteGenerator {
 	
 	public static void main(String args[]) {
 		int[] argumentos = null;
+		final int defaultCantidadDeAutos = 100;
+		final int defaultCantidadDeMeses = 3;
+		final int defaultCantidadDeAutosPorDia = 4;
 		
 		if ((args.length > 0) && (args.length < 3)) {
 			System.out.println("Cantidad de argumentos invalida");
@@ -26,7 +29,7 @@ public class PatenteGenerator {
 		}
 		
 		else if (args.length == 0)
-			shuffle(PatenteGenerator.generar(200),6,10);
+			shuffle(PatenteGenerator.generar(defaultCantidadDeAutos),defaultCantidadDeMeses,defaultCantidadDeAutosPorDia);
 		
 		else {
 			

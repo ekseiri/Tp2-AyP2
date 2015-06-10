@@ -13,6 +13,8 @@ public class Cliente implements Comparable<Cliente> {
 			throw new IllegalArgumentException("Patente y/o fecha no pueden ser nulos");
 		else if (!patente.matches("[A-Z]{3}[0-9]{3}"))
 			throw new IllegalArgumentException("Patente Inválida");
+		else if(!fecha.matches("[0-3]*[0-9]-(1[0-2]|0*[1-9])-2015"))
+			throw new IllegalArgumentException("Fecha Inválida");
 		else {
 			this.setUltimaVisita(fecha);
 			this.patente = patente;

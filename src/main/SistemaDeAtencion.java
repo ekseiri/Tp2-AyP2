@@ -86,7 +86,8 @@ public class SistemaDeAtencion {
 	 * Se imprime en orden de menor cantidad a mayor cantidad de visita.
 	 */
 	public void printOrdenPorFrecuencia() {
-		this.generarOrdenPorFrecuencia();
+		if (ordenFrecuencia == null)
+			this.generarOrdenPorFrecuencia();
 		
 		for (int i = 0; i < ordenFrecuencia.length; i++) {
 			//En caso de que no existan clientes con X cantidad de visitas

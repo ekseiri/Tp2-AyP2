@@ -1,6 +1,7 @@
 package main;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -17,7 +18,10 @@ public class SistemaDeAtencionInterfaz {
 	public static void prepareStuff(String msg) {
 		prn(msg);
 		prn("");
-		PatenteGenerator.main(new String[0]);
+		
+		if (!new File("Patentes.csv").isFile())
+			PatenteGenerator.main(new String[0]);
+		
 		clientes = new SistemaDeAtencion("Patentes.csv");
 		prn("Done");
 		prn("");
